@@ -14,10 +14,10 @@ import os
 import re
 
 
-def load():
-    #set path to the data
-    path = "/Users/and_ma/Documents/DataScience/UB_DataScience/DataScience_Project/Features/"
-    
+def load(path = "/Users/and_ma/Documents/DataScience/UB_DataScience/DataScience_Project/Features/"):
+    #input: path to the data
+    #output: dataframe with all the data.
+
     #set the path for the filenames
     filenames = os.listdir(path)
     
