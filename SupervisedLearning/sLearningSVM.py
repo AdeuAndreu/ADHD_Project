@@ -91,7 +91,7 @@ x_train, y_train, x_test, y_test = randomization_train_2_twoSet(x_train,y_train,
 
 
 # 5.1 Support Vector Machines
-print ("training SVM...")	
+print ("Training SVM...")	
 C = 20
 gamma = 1.31e-5
 shrinking = True
@@ -129,6 +129,8 @@ n_folds = 10
 kf=cross_validation.KFold(n=y_train.shape[0], n_folds=n_folds, shuffle=False, random_state=0)
 acc = np.zeros((n_folds,))
 f1 = np.zeros((n_folds,))
+precision = np.zeros((n_folds,))
+recall = np.zeros((n_folds,))
 i = 0
 X = x_train
 y = y_train
@@ -146,11 +148,14 @@ for train_index, test_index in kf:
     yhat[test_index] = svc.predict(X_test)
     acc[i] = metrics.accuracy_score(yhat[test_index], y_test)
     f1[i]  = metrics.f1_score(yhat[test_index], y_test)
+    precision[i] = metrics.precision_score(yhat[test_index], y_test)
+    recall[i] = metrics.recall_score(yhat[test_index], y_test)
     i=i+1
 
 print ('SVM mean accuracy: '+ str(np.mean(acc)))
 print ('SVM mean F1-Score: '+ str(np.mean(f1)))
-
+print ('SVM mean precision: '+ str(np.mean(precision)))
+print ('SVM mean recall: '+ str(np.mean(recall)))
 
 
 

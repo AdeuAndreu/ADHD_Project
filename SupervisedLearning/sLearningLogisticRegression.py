@@ -129,6 +129,8 @@ kf=cross_validation.KFold(n=y_train.shape[0], n_folds=n_folds, shuffle=False, ra
 
 acc = np.zeros((n_folds,))
 f1 = np.zeros((n_folds,))
+precision = np.zeros((n_folds,))
+recall = np.zeros((n_folds,))
 i = 0
 X = x_train
 y = y_train
@@ -145,10 +147,16 @@ for train_index, test_index in kf:
     yhat[test_index] = dt.predict(X_test)
     acc[i] = metrics.accuracy_score(yhat[test_index], y_test)
     f1[i]  = metrics.f1_score(yhat[test_index], y_test)
+    precision[i] = metrics.precision_score(yhat[test_index], y_test)
+    recall[i] = metrics.recall_score(yhat[test_index], y_test)
+
     i=i+1
 
 print ('Logistic regresion accuracy: '+ str(np.mean(acc)))
 print ('Logistic regression F1-Score: '+ str(np.mean(f1)))
+print ('Logistic regression precision: '+ str(np.mean(precision)))
+print ('Logistic regression recall: '+ str(np.mean(recall)))
+
 
 
 

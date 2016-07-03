@@ -132,12 +132,14 @@ class_weight = 'balanced'
 ########################################################  End Random-Forest
 
 
-
 ## Using k-fold cross validation to measure performance
 n_folds = 10
 kf=cross_validation.KFold(n=y_train.shape[0], n_folds=n_folds, shuffle=False, random_state=0)
 
 acc = np.zeros((n_folds,))
+precision = np.zeros((n_folds,))
+recall = np.zeros((n_folds,))
+#thresholds = np.zeros((n_folds,))
 f1 = np.zeros((n_folds,))
 i = 0
 X = x_train
@@ -154,11 +156,12 @@ for train_index, test_index in kf:
     X_test = scaler.transform(X_test)
     yhat[test_index] = dt.predict(X_test)
     acc[i] = metrics.accuracy_score(yhat[test_index], y_test)
+    precision[i] = metrics.precision_score(yhat[test_index], y_test)
+    recall[i] = metrics.recall_score(yhat[test_index], y_test)
     f1[i]  = metrics.f1_score(yhat[test_index], y_test)
     i=i+1
 
 print ('Random Forest mean accuracy: '+ str(np.mean(acc)))
 print ('Random Forest mean F1-Score: '+ str(np.mean(f1)))
-
-
-
+print ('Random Forest mean precision: '+ str(np.mean(precision)))
+print ('Random Forest mean recall: '+ str(np.mean(recall)))
