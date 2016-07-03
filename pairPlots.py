@@ -3,7 +3,7 @@
 #bandPower: List of bands to be ploted
 #pathToSavePlot: path where to save pairplots
 
-def pairPlotsPerExperiment ( electrodes, bandPower, pathToSavePlot ):
+def pairPlotsPerExperiment ( patientsDF, electrodes, bandPower, pathToSavePlot ):
     bandColumns = [ ]
     bandPowerColumns = [ ]
     for i in electrodes:
@@ -13,7 +13,8 @@ def pairPlotsPerExperiment ( electrodes, bandPower, pathToSavePlot ):
             combinationPower = 'BPR_' + i 
             bandPowerColumns.append( combinationPower )
     numberOfBandPower = len ( bandPower )
-
+	
+	experiments = list( patientsDF.Experiment.unique() )
     for exp in experiments:
         #For each electrode
         for i in range( 0, len( bandColumns ) - 1, numberOfBandPower ):
@@ -30,7 +31,7 @@ def pairPlotsPerExperiment ( electrodes, bandPower, pathToSavePlot ):
 
 ######
 ## HOW TO USE IT: EXAMPLE
-##
+##patientsDF = loadData( path )
 ##electrodes = ['Fp1', 'F3', 'C3', 'Fz', 'Cz', 'Fp2', 'F4', 'C4']
 ##bandPower = ['Theta', 'Theta2+Alpha1', 'Alpha', 'Beta_Global']
 ##pathToSavePlot = mainPath + "Plots/"
