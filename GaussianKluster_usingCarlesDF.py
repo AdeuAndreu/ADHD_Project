@@ -16,7 +16,8 @@ import pandas as pd
 from sklearn.decomposition import PCA
 
 import loadingADHD_Data
-
+from sklearn.preprocessing import StandardScaler
+from sklearn import metrics
 
 patientsDF = loadingADHD_Data.load()
 ApatientsDF = patientsDF[patientsDF['experiment']=='A']
@@ -26,6 +27,9 @@ dropBpatientsDF = BpatientsDF.drop(['experiment', 'patientName'],1)
 CpatientsDF = patientsDF[patientsDF['experiment']=='C']
 dropCpatientsDF = CpatientsDF.drop(['experiment', 'patientName'],1)
 
+
+scaler = StandardScaler()
+x_train = scaler.fit_transform(x_train)
 
 dropPatientsDF = patientsDF.drop(['experiment','patientName'],1)
 numberA = len(patientsDF[patientsDF['experiment']=='A'])
