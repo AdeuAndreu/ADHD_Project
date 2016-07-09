@@ -90,7 +90,6 @@ def plotCluster_matPlot(df,name_x,name_y,name_cluster):
     #number2 = len(df_plot[df_plot['cluster']==1])
     
     df_plot.sort_values(by='cluster', ascending= True, inplace=True) # Dataframe is sorted by cluster type: 0 or 1
-
     ### Plot result clustering in two dimensions
     fig = plt.figure(figsize=(8,8))
     plt.rcParams['legend.fontsize'] = 10
