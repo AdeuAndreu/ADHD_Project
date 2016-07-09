@@ -13,8 +13,8 @@ def pairPlotsPerExperiment ( patientsDF, electrodes, bandPower, pathToSavePlot )
             combinationPower = 'BPR_' + i 
             bandPowerColumns.append( combinationPower )
     numberOfBandPower = len ( bandPower )
-	
-	experiments = list( patientsDF.Experiment.unique() )
+
+    experiments = list( patientsDF.Experiment.unique() )
     for exp in experiments:
         #For each electrode
         for i in range( 0, len( bandColumns ) - 1, numberOfBandPower ):
@@ -35,6 +35,6 @@ def pairPlotsPerExperiment ( patientsDF, electrodes, bandPower, pathToSavePlot )
 ##electrodes = ['Fp1', 'F3', 'C3', 'Fz', 'Cz', 'Fp2', 'F4', 'C4']
 ##bandPower = ['Theta', 'Theta2+Alpha1', 'Alpha', 'Beta_Global']
 ##pathToSavePlot = mainPath + "Plots/"
-##pairPlotsPerExperiment ( electrodes, bandPower, pathToSavePlot )
+##pairPlotsPerExperiment ( patientsDF, electrodes, bandPower, pathToSavePlot )
 ##
 ######

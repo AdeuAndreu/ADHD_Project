@@ -1,4 +1,4 @@
-def corrGraphPlot( patientsDF, electrodes, bandPower, experiment, numberOfEdges, plotTitle ):
+def corrGraphPlot( patientsDF, electrodes, bandPower, numberOfEdges, plotTitle ):
     #Create columns for the band powers
     label_names=[]
     for i in electrodes:
@@ -8,11 +8,11 @@ def corrGraphPlot( patientsDF, electrodes, bandPower, experiment, numberOfEdges,
         
     node_angles = circular_layout(label_names, label_names, start_pos=90, group_boundaries=[0, len(label_names) / 2 ])
     # Dataframe to plot correlations
-    valuesDF = patientsDF.loc[patientsDF.Experiment == experiment, label_names]
-	# Create Correlation matrix
-    corrDF = df.corr()
-    corrValues = corr.values
-	# Plot correlationGraph
+    valuesDF = patientsDF[label_names]
+    # Create Correlation matrix
+    corrDF = valuesDF.corr()
+    corrValues = corrDF.values
+    # Plot correlationGraph
     plot = plot_connectivity_circle( corrValues, 
                              label_names, 
                              n_lines = numberOfEdges,
@@ -31,6 +31,6 @@ def corrGraphPlot( patientsDF, electrodes, bandPower, experiment, numberOfEdges,
 #experiment = 'A'
 #numberOfEdges = 100
 #plotTitle = 'All-to-All Correlation - Experiment A'
-#corrGraphPlot( patientsDF, electrodes, bandPower, experiment, numberOfEdges, plotTitle )
+#corrGraphPlot( patientsDF, electrodes, bandPower, numberOfEdges, plotTitle )
 ##
 ######
