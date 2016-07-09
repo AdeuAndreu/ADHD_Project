@@ -94,7 +94,7 @@ def plotCluster_matPlot(df,name_x,name_y,name_cluster):
     ### Plot result clustering in two dimensions
     fig = plt.figure(figsize=(8,8))
     plt.rcParams['legend.fontsize'] = 10
-    plt.plot(df_plot['PCA_x'].values[0:number1], df_plot['PCA_y'].values[0:number1], 'o', markersize=8, color='blue', alpha=0.5, label='0')
+    plt.plot(df_plot['PCA_x'].values[0:number1], df_plot['PCA_y'].values[0:number1], 'o', markersize=8, color='green', alpha=0.5, label='0')
     plt.plot(df_plot['PCA_x'].values[number1:], df_plot['PCA_y'].values[number1:], '^', markersize=8, alpha=0.5, color='red', label='1')
     plt.xlabel('PCA Componente 1')
     plt.ylabel('PCA Componente 2')
