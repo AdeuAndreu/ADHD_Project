@@ -12,7 +12,7 @@ import pandas as pd
 import scipy.io as sio
 import os
 import re
-
+import matplotlib.pyplot as plt
 
 def load(path = "/Users/and_ma/Documents/DataScience/UB_DataScience/DataScience_Project/Features/"):
     #input: path to the data
@@ -78,3 +78,28 @@ def load(path = "/Users/and_ma/Documents/DataScience/UB_DataScience/DataScience_
     #dropPatientsDF = patientsDF.drop(['experiment','patientName'],1)
 
     return (patientsDF)
+    
+def plotCluster_matPlot(df,name_x,name_y,name_cluster):
+    
+    df_plot = pd.DataFrame({})
+    df_plot['PCA_x'] = df[name_x]
+    df_plot['PCA_y'] = df[name_y]
+    df_plot['cluster'] = df[name_cluster]
+    
+    number1 = len(df_plot[df_plot['cluster']==0])
+    #number2 = len(df_plot[df_plot['cluster']==1])
+    
+    df_plot.sort_values(by='cluster', ascending= True, inplace=True) # Dataframe is sorted by cluster type: 0 or 1
+
+    ### Plot result clustering in two dimensions
+    fig = plt.figure(figsize=(8,8))
+    plt.rcParams['legend.fontsize'] = 10
+    plt.plot(df_plot['PCA_x'].values[0:number1], df_plot['PCA_y'].values[0:number1], 'o', markersize=8, color='blue', alpha=0.5, label='0')
+    plt.plot(df_plot['PCA_x'].values[number1:], df_plot['PCA_y'].values[number1:], '^', markersize=8, alpha=0.5, color='red', label='1')
+    plt.xlabel('PCA Componente 1')
+    plt.ylabel('PCA Componente 2')
+    plt.title('Samples for %s'%name_cluster)
+    plt.legend(loc='upper right')
+    plt.show()    
+   
+    return None      

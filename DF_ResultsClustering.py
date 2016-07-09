@@ -10,6 +10,8 @@ import os
 import re
 import numpy as np
 
+#path ="/Users/and_ma/Documents/DataScience/UB_DataScience/DataScience_Project/TeamWork/Data_Results_Unsupervised/"
+
 path_resultsFolder = "/Users/and_ma/Documents/DataScience/UB_DataScience/DataScience_Project/gitHub/ADHD_Project/resultsProject/"
 path_gmm = path_resultsFolder+'gmmClustering/'
 path_hierarchichal = path_resultsFolder+'hierarchicalClustering/'
@@ -17,7 +19,6 @@ path_kmeans = path_resultsFolder + 'kmeansClustering/'
 
 
 patternFile = r'[\w]+\.csv'
-
 
 ## 1. Loading gmm clustering results dataframe
 df_gmm = []
@@ -88,9 +89,9 @@ def mostCommon(df,list_clustering):
         if dicc['k1']>dicc['k2']:
             best.append('k1')
         else:
-            best.append('k2')
-    
+            best.append('k2')    
     return best    
+
             
 col_best = mostCommon(df_results,list_clustering)    
 df_results['Best_Cluster']=np.array(col_best)

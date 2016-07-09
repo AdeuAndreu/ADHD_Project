@@ -79,8 +79,8 @@ x_train = oneHotEncoding(train, numeric_cols)
 #x_test = test.as_matrix()
 
 #4.3 Separate train and test
-PRC=0.7
-x_train, y_train, x_test, y_test = randomization_train_2_twoSet(x_train,y_train,PRC=PRC)
+#PRC=0.7
+#x_train, y_train, x_test, y_test = randomization_train_2_twoSet(x_train,y_train,PRC=PRC)
 
 #Achtung: this do the same as randomization_train_2_twoSet but it fails!
 #x_train, y_train, x_test, y_test = train_test_split(x_train,y_train,test_size=PRC)
@@ -91,40 +91,40 @@ x_train, y_train, x_test, y_test = randomization_train_2_twoSet(x_train,y_train,
 
 
 # 5.1 Support Vector Machines
-print ("Training SVM...")	
-C = 20
-gamma = 1.31e-5
-shrinking = True
-probability = True
-verbose = True
-scaler = StandardScaler()
-x_train = scaler.fit_transform(x_train)
-
-svc = SVC( C = C, gamma = gamma, shrinking = shrinking, probability = probability, verbose = verbose,class_weight='balanced')
-#svc = SVC(C=1.0, cache_size=200, class_weight=None, coef0=0.0,
-#    decision_function_shape=None, degree=3, gamma='auto', kernel='rbf',
-#    max_iter=-1, probability=False, random_state=None, shrinking=True,
-#    tol=0.001, verbose=False)
+#print ("Training SVM...")	
+#C = 20
+#gamma = 1.31e-5
+#shrinking = True
+#probability = True
+#verbose = True
+#scaler = StandardScaler()
+#x_train = scaler.fit_transform(x_train)
 #
-    
-#svc = svm.SVC(C=C,kernel='rbf',class_weight='balanced')    
-svc.fit( x_train, y_train)
-
-#svc=svm.SVC(kernel='poly', gamma=3).fit(x_train, y_train) 
-
-#print('SVM training score ',svc.score(x_train,y_train_))
-x_test = scaler.transform(x_test)
-my_prediction = svc.predict(x_test)
-
-print ('SVM results ')
-print ('Performance Evaluation')
+#svc = SVC( C = C, gamma = gamma, shrinking = shrinking, probability = probability, verbose = verbose,class_weight='balanced')
+##svc = SVC(C=1.0, cache_size=200, class_weight=None, coef0=0.0,
+##    decision_function_shape=None, degree=3, gamma='auto', kernel='rbf',
+##    max_iter=-1, probability=False, random_state=None, shrinking=True,
+##    tol=0.001, verbose=False)
+##
+#    
+##svc = svm.SVC(C=C,kernel='rbf',class_weight='balanced')    
+#svc.fit( x_train, y_train)
+#
+##svc=svm.SVC(kernel='poly', gamma=3).fit(x_train, y_train) 
+#
+##print('SVM training score ',svc.score(x_train,y_train_))
+#x_test = scaler.transform(x_test)
+#my_prediction = svc.predict(x_test)
+#
+#print ('SVM results ')
+#print ('Performance Evaluation')
 #precision_recall(my_prediction,y_test)
 #print (metrics.classification_report(y_test,my_prediction))
 ########################################################  End SVM
 
 
 # Using k-fold cross validations
-
+C=1
 n_folds = 10
 kf=cross_validation.KFold(n=y_train.shape[0], n_folds=n_folds, shuffle=False, random_state=0)
 acc = np.zeros((n_folds,))
