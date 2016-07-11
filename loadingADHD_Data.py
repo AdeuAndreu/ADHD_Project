@@ -79,7 +79,7 @@ def load(path = "/Users/and_ma/Documents/DataScience/UB_DataScience/DataScience_
 
     return (patientsDF)
     
-def plotCluster_matPlot(df,name_x,name_y,name_cluster):
+def plotCluster_matPlot(df,name_x,name_y,name_cluster, title):
     
     df_plot = pd.DataFrame({})
     df_plot['PCA_x'] = df[name_x]
@@ -95,10 +95,10 @@ def plotCluster_matPlot(df,name_x,name_y,name_cluster):
     plt.rcParams['legend.fontsize'] = 10
     plt.plot(df_plot['PCA_x'].values[0:number1], df_plot['PCA_y'].values[0:number1], 'o', markersize=8, color='green', alpha=0.5, label='0')
     plt.plot(df_plot['PCA_x'].values[number1:], df_plot['PCA_y'].values[number1:], '^', markersize=8, alpha=0.5, color='red', label='1')
-    plt.xlabel('PCA Componente 1')
-    plt.ylabel('PCA Componente 2')
-    plt.title('Samples for %s'%name_cluster)
+    plt.xlabel('PCA Component 1')
+    plt.ylabel('PCA Component 2')
+    plt.title(title)
     plt.legend(loc='upper right')
     plt.show()    
    
-    return None      
+    return
