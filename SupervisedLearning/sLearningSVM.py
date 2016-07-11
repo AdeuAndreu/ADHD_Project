@@ -22,9 +22,26 @@ from sklearn.preprocessing import StandardScaler
 from sklearn.cross_validation import train_test_split
 import supervisedLearning_commons
 
+
+def randomization_train_2_twoSet(x_train,y_train,PRC=0.7):
+    #Alternative:
+    #from sklearn.cross_validation import train_test_split
+    #X_train, X_test, y_train, y_test = train_test_split(X, y, test_size=PRC)
+    perm = np.random.permutation(x_train.shape[0])
+    split_point = int(np.ceil(y_train.shape[0]*PRC))
+
+    X_train = x_train[perm[:split_point].ravel(),:]
+    Y_train = y_train[perm[:split_point].ravel()]
+
+    X_test = x_train[perm[split_point:].ravel(),:]
+    Y_test = y_train[perm[split_point:].ravel()]
+
+    return (X_train, Y_train, X_test, Y_test)
+
+
 #1.Read DAta
 path_data = '/Users/and_ma/Documents/DataScience/UB_DataScience/DataScience_Project/gitHub/ADHD_Project/'
-train = pd.read_csv(path_data+'supervisedLearningDataSet.csv')
+train = pd.read_csv(path_data+'supervisedLearningDataSet_Lunes11.csv')
 
 
 label_cluster = lambda x: 0 if x == 'k1'  else 1
@@ -51,7 +68,7 @@ numeric_cols=['Fp1_(Theta2+Alpha1)', 'Fp1_(Theta)', 'Fp1_(Alpha)',
        'F4_(Beta_Global)', 'F4_(Beta_Alta)', 'F4_(Beta_Baja)', 'F4_(Gamma)',
        'C4_(Theta2+Alpha1)', 'C4_(Theta)', 'C4_(Alpha)', 'C4_(Beta_Global)',
        'C4_(Beta_Alta)', 'C4_(Beta_Baja)', 'C4_(Gamma)', 'BPR_Fp1', 'BPR_F3',
-       'BPR_C3', 'BPR_Fz', 'BPR_Cz', 'BPR_Fp2', 'BPR_F4', 'BPR_C4','PCA_x', 'PCA_y'
+       'BPR_C3', 'BPR_Fz', 'BPR_Cz', 'BPR_Fp2', 'BPR_F4', 'BPR_C4','norm64comp_PCA_x', 'norm64comp_PCA_y','norm64comp_PCA_z'
        ]
 
 
