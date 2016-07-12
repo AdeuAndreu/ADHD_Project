@@ -20,10 +20,44 @@ from sklearn.cross_validation import train_test_split
 import supervisedLearning_commons
 
 
+def randomization_train_2_twoSet(x_train,y_train,PRC=0.7):
+    #Alternative:
+    #from sklearn.cross_validation import train_test_split
+    #X_train, X_test, y_train, y_test = train_test_split(X, y, test_size=PRC)
+    perm = np.random.permutation(x_train.shape[0])
+    split_point = int(np.ceil(y_train.shape[0]*PRC))
+
+    X_train = x_train[perm[:split_point].ravel(),:]
+    Y_train = y_train[perm[:split_point].ravel()]
+
+    X_test = x_train[perm[split_point:].ravel(),:]
+    Y_test = y_train[perm[split_point:].ravel()]
+
+    return (X_train, Y_train, X_test, Y_test)
+
+def oneHotEncoding(train, numeric_cols):
+    # receives the clean tain and test data
+    # in: train and test numpy matrix
+    x_num_train = train[numeric_cols].as_matrix()
+    #x_num_test = test[numeric_cols].as_matrix()
+    cat_train = train.drop(numeric_cols, axis=1)
+    #cat_test = test.drop(numeric_cols, axis=1)
+    x_cat_train = cat_train.T.to_dict().values()
+    #x_cat_test = cat_test.T.to_dict().values()
+    # 5.1 vectorize
+    vectorizer = DV(sparse=False)
+    vec_x_cat_train = vectorizer.fit_transform(x_cat_train)
+    #vec_x_cat_test = vectorizer.transform(x_cat_test)
+    # complete x
+    x_train = np.hstack((x_num_train, vec_x_cat_train))
+    #x_test = np.hstack((x_num_test, vec_x_cat_test))
+    return x_train
+    
+    
 #1.Read DAta
 path_data = '/Users/and_ma/Documents/DataScience/UB_DataScience/DataScience_Project/gitHub/ADHD_Project/'
 
-train = pd.read_csv(path_data+'supervisedLearningDataSet.csv')
+train = pd.read_csv(path_data+'supervisedLearningDataSet_Lunes11.csv')
 
 
 label_cluster = lambda x: 0 if x == 'k1'  else 1
@@ -50,7 +84,7 @@ numeric_cols=['Fp1_(Theta2+Alpha1)', 'Fp1_(Theta)', 'Fp1_(Alpha)',
        'F4_(Beta_Global)', 'F4_(Beta_Alta)', 'F4_(Beta_Baja)', 'F4_(Gamma)',
        'C4_(Theta2+Alpha1)', 'C4_(Theta)', 'C4_(Alpha)', 'C4_(Beta_Global)',
        'C4_(Beta_Alta)', 'C4_(Beta_Baja)', 'C4_(Gamma)', 'BPR_Fp1', 'BPR_F3',
-       'BPR_C3', 'BPR_Fz', 'BPR_Cz', 'BPR_Fp2', 'BPR_F4', 'BPR_C4','PCA_x', 'PCA_y'
+       'BPR_C3', 'BPR_Fz', 'BPR_Cz', 'BPR_Fp2', 'BPR_F4', 'BPR_C4','norm64comp_PCA_x', 'norm64comp_PCA_x'
        ]
 
 
@@ -133,8 +167,8 @@ class_weight = 'balanced'
 
 
 ## Using k-fold cross validation to measure performance
-n_folds = 10
-kf=cross_validation.KFold(n=y_train.shape[0], n_folds=n_folds, shuffle=False, random_state=0)
+n_folds = 200
+kf=cross_validation.KFold(n=y_train.shape[0], n_folds=n_folds, shuffle=False, random_state=0.3)
 
 acc = np.zeros((n_folds,))
 precision = np.zeros((n_folds,))

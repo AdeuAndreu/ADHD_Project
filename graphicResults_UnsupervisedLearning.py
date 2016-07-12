@@ -118,3 +118,7 @@ matrix_solapamiento = np.zeros((tam,tam))
 for fila in range(tam):
     for colum in range(tam):
         matrix_solapamiento[fila,colum] = solapamiento(df_results[list_clustering[fila]].values,df_results[list_clustering[colum]].values)
+        
+plotCluster_matPlot(df_results,'PCA_X','PCA_Y','cluster_Hierarchichal','Hierarchichal')
+        
+        

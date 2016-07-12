@@ -57,6 +57,39 @@ df_som.sort_values(by='patientName', ascending= True, inplace=True) # Dataframe 
 df_som = df_som.reset_index(drop = True)
 df_som_invert = lambda x: 1 if x==0 else 0
 df_som['cluster'] = df_som['cluster'].apply(df_som_invert)
+
+list_EX=['A','B','C']
+f,ax = plt.subplots(1, 3 , sharey=False,figsize=(20,5))
+j=0
+for i in list_EX:
+   
+    df_plot = df_som[df_som['experiment']==i]
+    df_plot.sort_values(by='patientName', ascending= True, inplace=True) # Dataframe is sorted by cluster type: 0 or 1
+    number1 = len(df_plot[df_plot['cluster']==0])
+    ax[j].plot(df_plot['PCA_x'].values[0:number1], df_plot['PCA_y'].values[0:number1], 'o', markersize=8, color='green', alpha=0.5, label='0')
+    ax[j].plot(df_plot['PCA_x'].values[number1:], df_plot['PCA_y'].values[number1:], '^', markersize=8, alpha=0.5, color='red', label='1')
+    j+=1    
+
+plt.show()
+
+
+# 3
+N_plots = len(list_clustering)
+f,ax = plt.subplots(2, N_plots , sharey=True,figsize=(40,8))
+for i in np.arange(N_plots):
+    df_plot = df_results[['PCA_X', 'PCA_Y',list_clustering[i]]]
+    number1 = len(df_plot[df_plot[list_clustering[i]]==0])
+    df_plot.sort_values(by=list_clustering[i], ascending= True, inplace=True)
+    ax[0,i].plot(df_plot['PCA_X'].values[0:number1], df_plot['PCA_Y'].values[0:number1], 'o', markersize=8, color='green', alpha=0.5, label='0')
+    ax[0,i].plot(df_plot['PCA_X'].values[number1:], df_plot['PCA_Y'].values[number1:], '^', markersize=8, alpha=0.5, color='red', label='1')
+    df_plot[list_clustering[i]].hist(ax=ax[1,i])    
+#    ax[i].xlabel('PCA Component 1')
+#    ax[i].ylabel('PCA Component 2')
+#    ax[i].set_title(list_clustering[i])
+plt.show() 
+
+
+
 ########
 
 df_merge['GMM'] = df_gmm['cluster']
@@ -138,7 +171,7 @@ df_results[['PCA_X','PCA_Y','patientName']].head()
 filename_unsupervised = 'resultsClustering_lunes11_PCA_gmm.csv'
 filename_supervised = 'supervisedLearningDataSet_Lunes11.csv'
 
-df_results.to_csv(filename_unsupervised, sep=',', encoding='utf-8')
-df_merge.to_csv(filename_supervised, sep=',', encoding='utf-8')
+#df_results.to_csv(filename_unsupervised, sep=',', encoding='utf-8')
+#df_merge.to_csv(filename_supervised, sep=',', encoding='utf-8')
 
-#plotCluster_matPlot(df_results[df_results['experiment']=='B'],'PCA_X','PCA_Y','cluster_Spectral')
+#plotCluster_matPlot(df_results,'PCA_X','PCA_Y','cluster_Spectral')
