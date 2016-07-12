@@ -45,6 +45,7 @@ df_gmm.sort_values(by='patientName', ascending= True, inplace=True) # Dataframe 
 df_gmm = df_gmm.reset_index(drop = True)
 
 
+
 path_som = '/Users/and_ma/Documents/DataScience/UB_DataScience/DataScience_Project/gitHub/ADHD_Project/UnsupervisedLearning/'
 filenames = os.listdir(path_som)
 df_som = []
@@ -71,6 +72,7 @@ for i in list_EX:
     j+=1    
 
 plt.show()
+
 
 # 3
 N_plots = len(list_clustering)
@@ -170,7 +172,7 @@ df_results[['PCA_X','PCA_Y','patientName']].head()
 filename_unsupervised = 'resultsClustering_lunes11_PCA_gmm.csv'
 filename_supervised = 'supervisedLearningDataSet_Lunes11.csv'
 
-df_results.to_csv(filename_unsupervised, sep=',', encoding='utf-8')
-df_merge.to_csv(filename_supervised, sep=',', encoding='utf-8')
+#df_results.to_csv(filename_unsupervised, sep=',', encoding='utf-8')
+#df_merge.to_csv(filename_supervised, sep=',', encoding='utf-8')
 
-#plotCluster_matPlot(df_results[df_results['experiment']=='B'],'PCA_X','PCA_Y','cluster_Spectral')
+#plotCluster_matPlot(df_results,'PCA_X','PCA_Y','cluster_Spectral')
