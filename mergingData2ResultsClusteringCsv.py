@@ -45,6 +45,7 @@ df_gmm.sort_values(by='patientName', ascending= True, inplace=True) # Dataframe 
 df_gmm = df_gmm.reset_index(drop = True)
 
 
+
 path_som = '/Users/and_ma/Documents/DataScience/UB_DataScience/DataScience_Project/gitHub/ADHD_Project/UnsupervisedLearning/'
 filenames = os.listdir(path_som)
 df_som = []
