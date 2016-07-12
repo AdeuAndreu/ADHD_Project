@@ -120,8 +120,8 @@ supervisedLearning = supervisedLearning.reset_index(drop = True)
 supervisedLearning = supervisedLearning.drop(['cluster','Unnamed: 0'],axis=1)
 supervisedLearning['Best_Cluster'] = df_results['Best_Cluster']
 
-if not os.path.exists(filename_slearning):
-    supervisedLearning.to_csv(filename_slearning, sep=',', encoding='utf-8')
+#if not os.path.exists(filename_slearning):
+#    supervisedLearning.to_csv(filename_slearning, sep=',', encoding='utf-8')
 
 
 ### Visually checked
