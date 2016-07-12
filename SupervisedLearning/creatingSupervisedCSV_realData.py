@@ -60,6 +60,16 @@ cluster_columns=['cluster_SOM',
        'cluster_Hierarchichal', 'cluster_GMM', 'cluster_Kmeans',
        'cluster_Spectral', 'Best_Cluster']
 
+cols_to_include = ['cluster_SOM',
+       'cluster_Hierarchichal', 'cluster_GMM', 'cluster_Kmeans',
+       'cluster_Spectral']
+       
+for i in cols_to_include:
+    df_supervised[i] =df_unsupervised[i]
+    
+       
+       
+
 
 
 df_supervised['Best_Cluster'] = df_unsupervised['Best_Cluster'].apply(lambda x: 1 if x==0 else 0)
