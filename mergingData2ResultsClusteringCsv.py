@@ -72,6 +72,7 @@ for i in list_EX:
 
 plt.show()
 
+
 # 3
 N_plots = len(list_clustering)
 f,ax = plt.subplots(2, N_plots , sharey=True,figsize=(40,8))
@@ -170,7 +171,7 @@ df_results[['PCA_X','PCA_Y','patientName']].head()
 filename_unsupervised = 'resultsClustering_lunes11_PCA_gmm.csv'
 filename_supervised = 'supervisedLearningDataSet_Lunes11.csv'
 
-df_results.to_csv(filename_unsupervised, sep=',', encoding='utf-8')
-df_merge.to_csv(filename_supervised, sep=',', encoding='utf-8')
+#df_results.to_csv(filename_unsupervised, sep=',', encoding='utf-8')
+#df_merge.to_csv(filename_supervised, sep=',', encoding='utf-8')
 
-#plotCluster_matPlot(df_results[df_results['experiment']=='B'],'PCA_X','PCA_Y','cluster_Spectral')
+#plotCluster_matPlot(df_results,'PCA_X','PCA_Y','cluster_Spectral')
